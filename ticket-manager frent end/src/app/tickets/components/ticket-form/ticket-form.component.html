@@ -1,0 +1,170 @@
+<mat-card *ngIf="categoryvisible" class="row col-md-12">
+  <app-category-form></app-category-form>
+</mat-card>
+<mat-card *ngIf="brandvisible" class="row col-md-12">
+  <app-brand-form></app-brand-form>
+</mat-card>
+<mat-card *ngIf="clientvisible" class="row col-md-12">
+  <app-client-form></app-client-form>
+</mat-card>
+<mat-card *ngIf="modelvisible" class="row col-md-12">
+  <app-model-form></app-model-form>
+</mat-card>
+<mat-card>
+
+  <form [formGroup]="ticketForm" novalidate (ngSubmit)="onSubmit()">
+    <mat-form-field appearance="legacy" style="width:200px !important" color="accent">
+
+      <mat-select placeholder="Select client" formControlName="client">
+        <button mat-button class="newClient mat-raised-button " color="accent" mat-button (click)="newClient()">
+          Add New Client
+        </button>
+        <!-- <mat-select-search [formControl]="clientFilterCtrl"></mat-select-search> -->
+        <mat-option (click)="clickCategory()" *ngFor="let c of clients" [value]="c._id"> {{c.name}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field appearance="legacy" style="width:200px !important" color="accent">
+      <mat-select placeholder="Select Category " #myCategory formControlName="category">
+        <button mat-button class="newClient mat-raised-button center" color="accent" mat-button (click)="newCategory()">
+          Add New Category
+        </button>
+        <mat-option (click)="clickBrand()" *ngFor="let catz of categories " [value]="catz.name"> {{catz.name}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field appearance="legacy" style="width:200px !important" color="accent">
+      <mat-select (change)="choosedBranch($event.value)" placeholder="Select Brand  " #myBrand formControlName="brand">
+        <button mat-button class="newBrand mat-raised-button " color="accent" mat-button (click)="newBrand()">
+          Add New Brand
+        </button>
+        <!-- (change)="onSelectBrand($event.target.value)" -->
+        <!-- [ngModel]="SelectedBrand" -->
+        <mat-option (click)="clickModel()" *ngFor="let b of brands " [value]="b.name"> {{b.name}} </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field appearance="legacy" style="width:200px !important" color="accent">
+      <mat-select placeholder="Select Model" #myModel formControlName="model">
+        <button mat-button class="newModel mat-raised-button " color="accent" mat-button (click)="newModel()">
+          Add New Model
+        </button>
+        <mat-option (click)="clickTask()" *ngFor="let m of models " [value]="m.name"> {{m.name}} </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <!-- <mat-form-field appearance="legacy" style="width:200px !important" color="accent"> -->
+      <!-- <mat-select placeholder="Select Task" #myTask formControlName="task">
+            <mat-option  (click)="clickMissing()" *ngFor= "let t of tasks " [value]="t.name">  {{t.name}} </mat-option>
+          </mat-select> -->
+          <!-- (onDropdownClose)="onDropdownCloseTask()" -->
+          <!-- (click)="clickMissing()" -->
+      <div appearance="legacy" style="width:200px !important;display: inline-block;" color="accent">
+      <ng-multiselect-dropdown 
+      [placeholder]="'Select Task'"
+            name="task"
+            [data]="dropdowntaskList"
+            [(ngModel)]="selectedItems"
+            formControlName="task"
+            [disabled]="disabled"
+            [settings]="dropdownSettings"
+            (onSelect)="onItemSelect($event)"
+
+            >
+        </ng-multiselect-dropdown>
+      </div>
+     
+    <!-- <mat-form-field appearance="legacy" style="width:200px !important" color="accent" #multiple>
+      <mat-select placeholder="Select missing" #myMissing formControlName="missing">
+        <mat-option (click)="clickStatus()" *ngFor="let missing of missings" [value]="missing">{{missing}}</mat-option>
+      </mat-select>
+    </mat-form-field> -->
+
+    <!-- (click)="clickStatus()" -->
+
+    <div appearance="legacy" style="width:200px !important;display: inline-block;" color="accent">
+      <ng-multiselect-dropdown 
+      [placeholder]="'Select missing'"
+            name="task"
+            [data]="dropdownMissingList"
+            [(ngModel)]="selectedmissing"
+            formControlName="missing"
+            [disabled]="disabled"
+            [settings]="dropdownSettings"
+            (onSelect)="onItemSelect($event)"
+            >
+        </ng-multiselect-dropdown>
+      </div>
+
+    <!-- <mat-form-field appearance="legacy" style="width:200px !important" color="accent">
+      <input matInput placeholder="missing" type="text" formControlName="missing">
+      <mat-error *ngIf="ticketForm.controls.missing.invalid && ticketForm.controls.missing.touched"> missing is required</mat-error>
+    </mat-form-field> -->
+    <mat-form-field appearance="legacy" style="width:200px !important" color="accent" #multiple>
+      <mat-select placeholder="Select Status" #myStatus formControlName="status">
+        <mat-option *ngFor="let s of statuses" [value]="s">{{s}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <!-- <mat-form-field>
+        <mat-select [(value)]="selected" formControlName="status" [multiple]="true" #multiSelect>
+          <mat-option>Select a status</mat-option>
+          <mat-option value="En Cours">En Cours</mat-option>
+          <mat-option value="Réparé">Réparé</mat-option>
+          <mat-option value="Irréparable">Irréparable</mat-option>
+        </mat-select>
+      </mat-form-field> -->
+
+
+    <!-- <mat-form-field appearance="legacy" style="width:200px !important" color="accent">
+      <input matInput placeholder="status" type="text" formControlName="status">
+      <mat-error *ngIf="ticketForm.controls.status.invalid && ticketForm.controls.status.touched"> status is required</mat-error>
+    </mat-form-field> -->
+
+    <mat-form-field appearance="legacy" style="width:200px !important" color="accent">
+      <input matInput placeholder="usercode" type="text" formControlName="usercode">
+      <mat-error *ngIf="ticketForm.controls.usercode.invalid && ticketForm.controls.usercode.touched"> usercode is
+        required</mat-error>
+    </mat-form-field>
+    <mat-form-field appearance="legacy" style="width:200px !important" color="accent">
+      <input matInput placeholder="price" type="number" formControlName="price">
+      <mat-error *ngIf="ticketForm.controls.price.invalid && ticketForm.controls.price.touched"> Price is required
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="legacy" style="width:200px !important" color="accent">
+      <input matInput placeholder="serial" type="text" formControlName="serial">
+      <mat-error *ngIf="ticketForm.controls.serial.invalid && ticketForm.controls.serial.touched"> serial is required
+      </mat-error>
+    </mat-form-field>
+
+    <!-- <mat-form-field appearance="legacy" style="width:200px !important" color="accent">
+        <input matInput placeholder="Recpetion date" type="text" formControlName="reception_date">
+        <mat-error *ngIf="ticketForm.controls.serial.invalid && ticketForm.controls.serial.touched"> reception date is required</mat-error>
+      </mat-form-field> -->
+    <!-- <mat-form-field appearance="legacy" style="width:200px !important" color="accent">
+      <input matInput [matDatepicker]="reception_date" placeholder="Reception date" formControlName="reception_date">
+      <mat-datepicker-toggle matSuffix [for]="reception_date"></mat-datepicker-toggle>
+      <mat-datepicker #reception_date>{{ mydate | date: 'dd/MM/yyyy hh:mm'}}</mat-datepicker>
+      <mat-error *ngIf="ticketForm.controls.reception_date.invalid && ticketForm.controls.reception_date.touched"> date
+        is required</mat-error>
+    </mat-form-field> -->
+
+    <mat-form-field appearance="legacy" style="width:200px !important" color="accent">
+      <input matInput [matDatepicker]="delivery_date" placeholder="Expected date" formControlName="delivery_date">
+      <mat-datepicker-toggle matSuffix [for]="delivery_date"></mat-datepicker-toggle>
+      <mat-datepicker #delivery_date></mat-datepicker>
+      <mat-error *ngIf="ticketForm.controls.delivery_date.invalid && ticketForm.controls.delivery_date.touched">
+        delivery_date date is required</mat-error>
+    </mat-form-field>
+
+
+
+    <div class="pull-right">
+      <button mat-raised-button type="submit" color="accent">Save</button>
+      <button mat-raised-button type="reset">Cancel</button>
+    </div>
+  </form>
+
+</mat-card>

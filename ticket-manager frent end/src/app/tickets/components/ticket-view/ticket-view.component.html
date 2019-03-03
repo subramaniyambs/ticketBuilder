@@ -1,0 +1,75 @@
+
+    <!-- <mat-card-actions align="center">
+        <button mat-raised-button color="primary" [routerLink]="['/dashboard','tickets',invoice._id]">Edit</button>
+        <button mat-raised-button color="accent" (click)="downloadHandler(ticket._id)">Download</button>
+        <button mat-raised-button color="accent" (click)="printHandler(ticket._id)">Print</button>
+      </mat-card-actions>  -->
+      <mat-card-actions align="center">
+      <div class="print-menu " align="center">
+          <button mat-raised-button color="primary" [routerLink]="['/dashboard','tickets',ticket._id]">Edit</button>
+          <button mat-raised-button color="accent" (click)="downloadHandler(ticket._id)">Download</button>
+          <button mat-raised-button color="accent" (click)="printHandler(ticket._id)">Print</button>
+    </div> 
+  </mat-card-actions>
+    <hr>
+<div class="container md-col-5">
+<mat-card>
+  
+<mat-card-title><img src="http://omegaservices.fr/medias/logo-omega.png"></mat-card-title>
+<mat-card-content>
+  <div>
+    <p>400 Rue nationale
+<br>
+69400, Villefranche sur saone
+<br>
+tel : 0986608980
+    </p>
+    
+  </div>
+  <hr>
+  <table>
+    
+    <tr>
+      <td class="column-title">Date: </td>
+      <td>{{ticket.reception_date | date: 'dd/MM/yyyy hh:mm'}}</td>
+     </tr>
+    <tr>
+      <td class="column-title">client: </td>
+      <td>{{ticket.client['name']}}</td>
+    </tr>
+     <tr>
+       <td class="column-title">Telephone: </td>
+      <td>{{ticket.client['phone']}}</td>
+      </tr>  
+      <tr>
+         <td class="column-title">model: </td>
+         <td>{{ticket.model}}</td>
+      </tr>
+      <tr>
+        <td class="column-title">task: </td>
+        <td>{{ticket.task}}</td>
+       </tr>
+       <tr>
+        <td class="column-title">Price: </td>
+        <td>{{ticket.price}}€</td>
+       </tr>
+      
+      </table>
+     
+      <hr>
+      <div class="guarantie">
+          <p>Tout nos reparations sont guarantie3 mois.</p>
+        </div>
+        
+            <div class="svg">
+                <ngx-barcode *ngFor="let bcValue of values" [bc-element-type]="elementType" [bc-value]="bcValue" [bc-format]="format" [bc-line-color]="lineColor"
+                 [bc-width]="width" [bc-height]="height" [bc-display-value]="displayValue" [bc-font-options]="fontOptions" [bc-font]="font"
+                 [bc-text-align]="textAlign" [bc-text-position]="textPosition" [bc-text-margin]="textMargin" [bc-font-size]="fontSize" [bc-background]="background"
+                 [bc-margin]="margin" [bc-margin-top]="marginTop" [bc-margin-bottom]="marginBottom" [bc-margin-left]="marginLeft" [bc-margin-right]="marginRight"></ngx-barcode>
+              </div>
+        
+    </mat-card-content>
+
+    </mat-card>
+    </div>
+    

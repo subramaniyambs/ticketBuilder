@@ -1,0 +1,76 @@
+
+<mat-toolbar>
+    <mat-form-field color="accent">
+      <input matInput (keyup)="filterText($event.target.value)" placeholder="Filter" />
+    </mat-form-field>
+    <div class="menu-bar">
+      <button mat-button (click)="saveBtnHanlder()">
+        New Model
+      </button>
+    </div>
+  </mat-toolbar>
+  <div class="table-container mat-elevation-z8">
+    <div class="mat-elevation-z8">
+      <div class="loading-shade" *ngIf="isResultsLoading">
+        <mat-spinner color="accent" *ngIf="isResultsLoading"></mat-spinner>
+      </div>
+    </div>
+  
+  
+    <mat-table #table [dataSource]="dataSource" matSort>
+  
+      <!--- Note that these columns can be defined in any order.
+              The actual rendered columns are set as a property on the row definition" -->
+  
+              <ng-container matColumnDef="id">
+                  <mat-header-cell *matHeaderCellDef mat-sort-header> id </mat-header-cell>
+                  <mat-cell *matCellDef="let model"> {{model._id}} </mat-cell>
+                </ng-container>
+            
+      <ng-container matColumnDef="model">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> Model </mat-header-cell>
+        <mat-cell *matCellDef="let model"> {{model.name}} </mat-cell>
+      </ng-container>
+
+  
+      <ng-container matColumnDef="brand">
+        <mat-header-cell *matHeaderCellDef> brand </mat-header-cell>
+        <mat-cell *matCellDef="let brand" > {{brand.brand['name']}} </mat-cell>
+      </ng-container>
+  
+      <ng-container matColumnDef="action">
+        <mat-header-cell *matHeaderCellDef> Action </mat-header-cell>
+        <mat-cell *matCellDef="let model">
+          <button mat-icon-button [matMenuTriggerFor]="menu">
+            <mat-icon>more_vert</mat-icon>
+          </button>
+          <mat-menu #menu="matMenu">
+               
+            <button mat-menu-item (click)="editBtnHandler(model._id)">
+              <mat-icon>edit</mat-icon>
+              <span>Edit</span>
+            </button>
+            <button mat-menu-item (click)="deleteBtnHandler(model._id)">
+              <mat-icon>delete</mat-icon>
+              <span>Delete</span>
+            </button>
+          </mat-menu>
+        </mat-cell>
+      </ng-container>
+  
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+    </mat-table>
+    <mat-paginator #paginator [length]="resultsLength" [showFirstLastButtons]="true" [pageSize]="10" [pageSizeOptions]="[5, 10, 20]">
+    </mat-paginator>
+  </div>
+  <div *ngIf="isLoaded" style="text-align: center;">
+      <button (click)="prevPage()" [disabled]="page === 1">Prev</button>
+      <span>{{ page }} / {{ totalPages }}</span>
+      <button (click)="nextPage()" [disabled]="page === totalPages">Next</button>
+      <button mat-button color="accent" (click)="print()"></button>
+          <mat-icon class="mat-24" aria-label="Example icon-button with a heart icon">print</mat-icon>
+     
+    </div>
+    
+    

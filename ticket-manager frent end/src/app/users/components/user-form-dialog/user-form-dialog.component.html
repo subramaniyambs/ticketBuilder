@@ -1,0 +1,38 @@
+<h1 mat-dialog-title>{{title}}</h1>
+<div mat-dialog-content>
+
+  <form class="form-container" [formGroup]="userForm">
+
+      <mat-form-field color="accent">
+          <input matInput formControlName="email" placeholder="email" >
+          <mat-error *ngIf="userForm.controls.email.invalid && userForm.controls.email.touched"> email is required</mat-error>
+        </mat-form-field>
+
+
+
+        <mat-form-field color="accent">
+            <input matInput formControlName="password" placeholder="password">
+            <mat-error *ngIf="userForm.controls.password.invalid && userForm.controls.password.touched"> password is required</mat-error>
+         </mat-form-field>
+
+    <mat-form-field color="accent">
+      <input matInput formControlName="name" placeholder="name">
+      <mat-error *ngIf="userForm.controls.name.invalid && userForm.controls.name.touched"> Name is required</mat-error>
+    </mat-form-field>
+
+    <mat-form-field color="accent">
+        <input matInput formControlName="address" placeholder="address">
+        <mat-error *ngIf="userForm.controls.address.invalid && userForm.controls.address.touched"> Address is required</mat-error>
+      </mat-form-field>
+
+      <mat-form-field color="accent">
+        <input matInput formControlName="phone" placeholder="phone">
+        <mat-error *ngIf="userForm.controls.phone.invalid && userForm.controls.phone.touched"> Phone is required</mat-error>
+      </mat-form-field>
+
+</form>
+</div>
+<div mat-dialog-actions>
+  <button mat-button [disabled]="!userForm.valid" [mat-dialog-close]="userForm.value" cdkFocusInitial>Save</button>
+  <button mat-button (click)="onNoClick()">Cancel</button>
+</div>

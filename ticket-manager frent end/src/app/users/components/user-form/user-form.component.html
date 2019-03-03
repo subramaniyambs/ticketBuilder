@@ -1,0 +1,53 @@
+<div class="limiter">
+  <div class="container-login">
+    <mat-card>
+      <div *ngIf="isResultsLoading" class="mat-elevation-z8">
+        <div class="loading-shade">
+          <mat-spinner color="accent"></mat-spinner>
+        </div>
+      </div>
+      <mat-card-title>New User Account</mat-card-title>
+      <mat-card-content>
+        <form class="form-container" [formGroup]="authForm" novalidate (ngSubmit)="ngSignup()">
+          <mat-form-field color="accent"  >
+            <input matInput placeholder="Email" formControlName="email">
+            <mat-error *ngIf="authForm.controls.email.invalid && authForm.controls.email.touched"> email is required</mat-error>
+          </mat-form-field>
+          <mat-form-field color="accent"  >
+            <input matInput placeholder="Password" formControlName="password" type="password">
+            <mat-error *ngIf="authForm.controls.password.invalid && authForm.controls.password.touched"> password is required</mat-error>
+          </mat-form-field>
+          <!-- <mat-form-field color="accent"  >
+            <input matInput placeholder="Name" formControlName="name">
+            <mat-error *ngIf="authForm.controls.name.invalid && authForm.controls.name.touched"> name is required</mat-error>
+          </mat-form-field> -->
+          <!-- 
+          <mat-form-field color="accent"  >
+            <input matInput placeholder="Phone" formControlName="phone">
+            <mat-error *ngIf="authForm.controls.phone.invalid && authForm.controls.phone.touched"> phone is required</mat-error>
+          </mat-form-field>
+          <mat-form-field color="accent"  >
+            <input matInput placeholder="Address" formControlName="address">
+            <mat-error *ngIf="authForm.controls.address.invalid && authForm.controls.address.touched"> address is required</mat-error>
+          </mat-form-field> -->
+        
+          <div>
+            <button mat-raised-button  type="submit" color="accent">Signup</button>
+          </div>
+        </form>
+      </mat-card-content>
+      <hr>
+      <footer><a href="http://www.omegaservices.fr/" target="_blank"><img src="http://omegaservices.fr/medias/xlogo-omega.png.pagespeed.ic.9SFMdVrRWd.webp"></a>
+        <p>You Gotta Love <a href="http://www.omegaservices.fr/" target="_blank">O'MEGA Services</a></p>
+      </footer>
+      <!-- <div class="alternative" *ngIf="title === 'Login'">
+        <p>Don't have an account?</p>
+        <button mat-raised-button color="accent" [routerLink]="['/signup']">Signup</button>
+      </div>
+      <div class="alternative" *ngIf="title === 'Signup'">
+        <p>Have an account?</p>
+        <button mat-raised-button color="accent" [routerLink]="['/login']">Login</button>
+      </div> -->
+    </mat-card>
+  </div>
+</div>

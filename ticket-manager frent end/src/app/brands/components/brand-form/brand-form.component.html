@@ -1,0 +1,15 @@
+
+ 
+    <form class="form-container" [formGroup]="brandForm" novalidate (ngSubmit)="onSubmit()">
+      <mat-form-field color="accent"  >
+        <input matInput placeholder="Brand Name" formControlName="name">
+        <!-- <mat-error *ngIf="categoryForm.controls.item.invalid && categoryForm.controls.item.touched"> item is required</mat-error> -->
+      </mat-form-field>
+     
+      <div>
+        <button mat-raised-button [disabled]="!brandForm.valid" type="submit" color="accent">Save</button>
+        <button mat-raised-button type="reset">Cancel</button>
+      </div>
+    </form>
+
+  

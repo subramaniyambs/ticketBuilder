@@ -1,0 +1,80 @@
+<mat-card *ngIf="clientvisible" class="row col-md-12">
+    <app-client-form></app-client-form> 
+</mat-card>
+
+
+
+<mat-toolbar>
+    <mat-form-field>
+        <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
+      </mat-form-field>
+  <div class="menu-bar">
+      <button mat-button (click)="newClient()">
+        New Client
+      </button>
+    </div>
+</mat-toolbar>
+
+<div class="table-container mat-elevation-z8">
+  <div class="mat-elevation-z8">
+    <div class="loading-shade" *ngIf="isResultsLoading">
+      <mat-spinner color="accent" *ngIf="isResultsLoading"></mat-spinner>
+    </div>
+  </div>
+  <mat-table #table [dataSource]="dataSource" matSort (matSortChange)="sortData($event)" matSortActive="name" matSortDirection="asc" matSortDisableClear>
+    <ng-container matColumnDef="name">
+      <mat-header-cell *matHeaderCellDef> name </mat-header-cell>
+      <mat-cell *matCellDef="let client"> {{client.name}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="address">
+      <mat-header-cell *matHeaderCellDef> address </mat-header-cell>
+      <mat-cell *matCellDef="let client"> {{client.address}} </mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="post">
+        <mat-header-cell *matHeaderCellDef> Post code </mat-header-cell>
+        <mat-cell *matCellDef="let client"> {{client.post}} </mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="city">
+          <mat-header-cell *matHeaderCellDef> City </mat-header-cell>
+          <mat-cell *matCellDef="let client"> {{client.city}} </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="phone">
+            <mat-header-cell *matHeaderCellDef> Phone </mat-header-cell>
+            <mat-cell *matCellDef="let client"> {{client.phone}} </mat-cell>
+          </ng-container>
+    <ng-container matColumnDef="email">
+      <mat-header-cell *matHeaderCellDef> Email</mat-header-cell>
+      <mat-cell *matCellDef="let client"> {{client.email}} </mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="siren">
+        <mat-header-cell *matHeaderCellDef> siren</mat-header-cell>
+        <mat-cell *matCellDef="let client"> {{client.siren}} </mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="tva">
+          <mat-header-cell *matHeaderCellDef> tva</mat-header-cell>
+          <mat-cell *matCellDef="let client"> {{client.tva}} </mat-cell>
+        </ng-container>
+    <ng-container matColumnDef="action">
+      <mat-header-cell *matHeaderCellDef> Action </mat-header-cell>
+      <mat-cell *matCellDef="let client">
+        <button mat-icon-button [matMenuTriggerFor]="menu">
+          <mat-icon>more_vert</mat-icon>
+        </button>
+        <mat-menu #menu="matMenu">
+          <button mat-menu-item (click)="openDialog(client._id)">
+            <mat-icon>edit</mat-icon>
+            <span>Edit</span>
+          </button>
+          <button mat-menu-item (click)="deleteBtnHandler(client._id)">
+            <mat-icon>delete</mat-icon>
+            <span>Delete</span>
+          </button>
+        </mat-menu>
+      </mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+  </mat-table>
+</div>

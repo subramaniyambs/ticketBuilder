@@ -1,0 +1,80 @@
+<mat-toolbar color="primary">
+  <span>
+    <a routerLink="/">O'MEGA services</a>  </span>
+    <span class="spacer"></span>
+    <p style="color: rgb(0, 255, 234)"> {{ mydate | date: 'dd/MM/yyyy hh:mm:ss'}}</p>
+  <span class="spacer"></span>
+  <ul>
+      <li >
+          <a mat-button routerLink="/dashboard/home" routerLinkActive="mat-accent">Home</a>
+      </li>
+      <!-- <li >
+          <a mat-button routerLink="/dashboard/users" routerLinkActive="mat-accent">Users</a>
+      </li>
+      <li >
+          <a mat-button routerLink="/dashboard/categories" routerLinkActive="mat-accent">Categories</a>
+      </li>
+      <li >
+          <a mat-button routerLink="/dashboard/models" routerLinkActive="mat-accent">Models</a>
+      </li>
+      <li >
+          <a mat-button routerLink="/dashboard/tasks" routerLinkActive="mat-accent">Tasks</a>
+      </li>
+      <li >
+          <a mat-button routerLink="/dashboard/brands" routerLinkActive="mat-accent">Brands</a>
+      </li> -->
+      <li >
+          <a mat-button routerLink="/dashboard/tickets" routerLinkActive="mat-accent">Tickets</a>
+        </li>
+    <li >
+      <a mat-button routerLink="/dashboard/invoices" routerLinkActive="mat-accent">Invoices</a>
+    </li>
+    <li >
+        <a mat-button routerLink="/dashboard/clients" routerLinkActive="mat-accent">Clients</a>
+      </li>
+    <li >
+        <a mat-button routerLink="/dashboard/users" routerLinkActive="mat-accent">Users</a>
+      </li>
+    
+  </ul>
+
+  <div class="menu-bar">
+    <button mat-icon-button [matMenuTriggerFor]="menu">
+      <mat-icon>more_vert</mat-icon>
+    </button>
+    <mat-menu #menu="matMenu">
+        <button mat-menu-item >
+            <span>Profile</span>
+          </button>
+      <button mat-menu-item (click)="logout()">
+        <span>Logout</span>
+      </button>
+    </mat-menu>
+  </div>
+</mat-toolbar>
+<div class="wrapper">
+  <router-outlet></router-outlet>
+</div>
+
+
+<!-- <mat-toolbar color="accent">
+  <button mat-button (click)="toggleSidenav.emit()" class="sidenav-toggle">
+    <mat-icon>
+      menu
+    </mat-icon>
+  </button>
+  <span>O'MEGA Services</span>
+  <mat-nav-list>
+    <a mat-list-item [routerLink] = [link.url] *ngFor="let link of links"> {{ link.name }} </a>
+ </mat-nav-list>
+  <div class="menu-bar">
+    <button mat-icon-button [matMenuTriggerFor]="menu">
+      <mat-icon>more_vert</mat-icon>
+    </button>
+    <mat-menu #menu="matMenu">
+      <button mat-menu-item (click)="logout()">
+        <span>Logout</span>
+      </button>
+    </mat-menu>
+  </div>
+</mat-toolbar> -->

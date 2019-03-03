@@ -1,0 +1,45 @@
+
+    <form [formGroup]="clientForm"  novalidate (ngSubmit)="onSubmit()">
+
+        <mat-form-field color="accent">
+          <input matInput formControlName="name" placeholder="name">
+       
+        </mat-form-field>
+        <mat-form-field color="accent">
+            <input matInput formControlName="address" placeholder="address">
+         
+          </mat-form-field>
+          <mat-form-field color="accent">
+              <input matInput formControlName="post" placeholder="post">
+             
+            </mat-form-field>
+            <mat-form-field color="accent">
+                <input matInput formControlName="city" placeholder="city">
+               
+              </mat-form-field>
+              <mat-form-field color="accent">
+                  <input matInput formControlName="phone" placeholder="phone">
+                 
+                </mat-form-field>
+                <mat-form-field color="accent">
+                    <input matInput formControlName="email" placeholder="email">
+                </mat-form-field>
+               
+              
+                    <button mat-raised-button [disabled]="!clientForm.valid" color="accent" type="submit">Save Client</button>&nbsp;
+                    <mat-slide-toggle (click)="pro()"  type="checkbox" ng-model="all">Pro</mat-slide-toggle>
+              
+                
+        
+            <div *ngIf="visible" class="row col-md-12">
+            <mat-form-field color="accent">
+                <input matInput formControlName="siren" placeholder="siren">
+              </mat-form-field>
+              <mat-form-field color="accent">
+                <input matInput formControlName="tva" placeholder="tva">
+              </mat-form-field>
+            </div>
+            
+      </form>
+
+  

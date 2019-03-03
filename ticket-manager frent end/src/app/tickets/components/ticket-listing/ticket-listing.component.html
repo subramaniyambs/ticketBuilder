@@ -1,0 +1,300 @@
+<mat-card *ngIf="categoryvisible" class="row col-md-12">
+  <app-category-form></app-category-form>
+</mat-card>
+<mat-card *ngIf="clientvisible" class="row col-md-12">
+  <app-client-form></app-client-form>
+</mat-card>
+
+<mat-card *ngIf="ticketvisible" class="row col-md-12">
+  <div>
+    <app-ticket-form></app-ticket-form>
+  </div>
+</mat-card>
+
+<mat-toolbar>
+  <div class="menu-bar">
+    <div>
+      <button class="newTicket" mat-button (click)="newTicket()"> New Ticket</button>
+      <button class="newClient" mat-button (click)="newClient()"> New Client</button>
+    </div>
+
+  </div>
+  
+
+ 
+
+</mat-toolbar>
+<div class="container">
+    <div class="row">
+<form [formGroup]="ticketSearchForm"  novalidate (ngSubmit)="filterList()">
+    <mat-form-field appearance="legacy" style="width:200px !important" color="accent">
+        <input matInput  formControlName="client" placeholder="Search Client Name" >
+      </mat-form-field>
+    <mat-form-field appearance="legacy" style="width:200px !important" color="accent">
+        <!-- (keyup)="filterText($event.target.value,'serialNumFilter')" -->
+        <input matInput  formControlName="serial" placeholder="Search Serial Number" >
+      </mat-form-field>
+
+      <!-- <mat-form-field>
+          <input matInput  formControlName="receptionDate" placeholder="Filter Reception Date" >
+        </mat-form-field> -->
+
+        <mat-form-field appearance="legacy" style="width:200px !important" color="accent">
+            <input matInput [matDatepicker]="reception_date" placeholder="Search Reception date" formControlName="reception_date">
+            <mat-datepicker-toggle matSuffix [for]="reception_date"></mat-datepicker-toggle>
+            <mat-datepicker #reception_date >{{ mydate | date: 'dd/MM/yyyy hh:mm'}}</mat-datepicker>
+            <!-- <mat-error *ngIf="ticketForm.controls.reception_date.invalid && ticketForm.controls.reception_date.touched"> date is required</mat-error> -->
+          </mat-form-field>
+       
+          <button mat-raised-button type="submit" color="accent">Search</button>
+
+        <!-- <div class="menu-bar">
+            <button mat-raised-button type="submit" color="accent">Searchs</button>
+            <button mat-button type="submit" color="accent" >
+                Search
+            </button>
+          </div> -->
+</form>
+</div>
+</div>
+
+<div class="loading-shade" *ngIf="isResultsLoading">
+  <mat-spinner color="accent" *ngIf="isResultsLoading"></mat-spinner>
+</div>
+<mat-card>
+  <mat-expansion-panel *ngFor="let ticket of dataSource.data ">
+    <mat-expansion-panel-header matSort (matSortChange)="sortData($event)" matSortDirection="desc">
+      <div class="container">
+        <mat-panel-title>
+          <div class="row">
+            <mat-icon style="color:#9ad3de;">account_circle</mat-icon>
+            <label style="font-weight: bold; margin-right: 2rem;  padding-left: 1rem;"> </label>
+            <p> {{ticket.client.name}}</p>
+          </div>
+        </mat-panel-title>
+      </div>
+      <div class="container">
+        <mat-panel-description>
+          <div class="row">
+            <mat-icon style="color:#f36147;">date_range</mat-icon>
+            <label style="font-weight: bold; margin-right: 2rem;  padding-left: 1rem;"> </label>
+            <p>{{ticket.reception_date | date: 'dd/MM/yyyy'}}</p>
+          </div>
+        </mat-panel-description>
+
+      </div>
+
+      <div class="container">
+        <mat-panel-description>
+          <div class="row">
+            <label style="font-weight: bold; margin-right: 2rem;  padding-left: 1rem;"> Status :</label>
+            <p>{{ticket.status}}</p>
+          </div>
+        </mat-panel-description>
+
+      </div>
+      <div class="container">
+        <mat-panel-description>
+          <div class="row">
+            <mat-icon style="color:#e718d2;">person</mat-icon>
+            <label style="font-weight: bold; margin-right: 2rem;  padding-left: 1rem;"> </label>
+            <p>{{ticket.creator}}</p>
+          </div>
+        </mat-panel-description>
+
+      </div>
+    </mat-expansion-panel-header>
+
+    <div class="Row">
+      <div class="ColumnInside">
+        <div class="row">
+          <label style="font-weight: bold; margin-right: 2rem; padding-left: 1rem;"> Brand :</label>
+          <p> {{ticket.brand}}</p>
+        </div>
+        <div class="row">
+          <label style="font-weight: bold; margin-right: 2rem; padding-left: 1rem;"> Model :</label>
+          <p> {{ticket.model}}</p>
+        </div>
+        <div class="row">
+          <label style="font-weight: bold; margin-right: 2rem; padding-left: 1rem;"> Task :</label>
+          <p> {{ticket.task}}</p>
+        </div>
+        <div class="row">
+          <label style="font-weight: bold; margin-right: 2rem;  padding-left: 1rem;"> Missing :</label>
+          <p> {{ticket.missing}}</p>
+        </div>
+      </div>
+
+      <div class="ColumnInside">
+
+        <div class="row">
+          <label style="font-weight: bold; margin-right: 2rem;  padding-left: 1rem;"> Reception Date : :</label>
+          <p> {{ticket.reception_date | date: 'dd/MM/yyyy'}}</p>
+        </div>
+        <div class="row">
+          <label style="font-weight: bold; margin-right: 2rem;  padding-left: 1rem;"> Delivery Date :</label>
+          <p> {{ticket.delivery | date: 'dd/MM/yyyy'}}</p>
+        </div>
+        <div class="row">
+          <label style="font-weight: bold; margin-right: 2rem;  padding-left: 1rem;"> price :</label>
+          <p> {{ticket.price}} €</p>
+        </div>
+        <div class="row">
+          <label style="font-weight: bold; margin-right: 2rem;  padding-left: 1rem;"> Serial :</label>
+          <p> {{ticket.serial}}</p>
+        </div>
+      </div>
+      <div class="ColumnInside" form-inline>
+        <div class="row">
+          <label style="font-weight: bold; margin-right: 2rem;  padding-left: 1rem;"> Status :</label>
+          <p> {{ticket.status}}</p>
+        </div>
+        <div class="row">
+          <label style="font-weight: bold; margin-right: 2rem;  padding-left: 1rem;"> User Code :</label>
+          <p> {{ticket.usercode}}</p>
+        </div>
+        <div class="row">
+          <label style="font-weight: bold; margin-right: 2rem;  padding-left: 1rem;"> Comment :</label>
+          <p> {{ticket.coment}}</p>
+        </div>
+        <div class="row">
+          <label style="font-weight: bold; margin-right: 2rem;  padding-left: 1rem;"> Technician :</label>
+          <p> {{ticket.creator}}</p>
+        </div>
+
+      </div>
+    </div>
+    <mat-action-row>
+      <button mat-raised-button color="primary" (click)="editBtnHandler(ticket._id)">Edit
+        <mat-icon>edit</mat-icon>
+      </button>
+      <button mat-raised-button color="accent" [routerLink]="[ticket._id, 'view']">View
+        <mat-icon>pageview</mat-icon>
+      </button>
+      <button mat-raised-button color="warn" (click)="deleteBtnHandler(ticket._id)">Delete
+        <mat-icon>delete</mat-icon>
+      </button>
+    </mat-action-row>
+  </mat-expansion-panel>
+
+  <mat-paginator #paginator [length]="resultsLength" [showFirstLastButtons]="true" [pageSize]="10" [pageSizeOptions]="[5, 10, 20]">
+  </mat-paginator>
+</mat-card>
+
+<!-- <mat-card *ngIf="clientvisible" class="row col-md-12">
+    <app-client-form></app-client-form> 
+</mat-card> -->
+
+
+
+
+<mat-card class="row col-md-12 newTable">
+
+  <mat-table #table [dataSource]="dataSource " matSortActive="reception_date" matSortDirection="asc"
+    matSortDisableClear class="mat-elevation-z8" matSort>
+
+    <!-- Checkbox Column -->
+    <ng-container matColumnDef="select">
+      <th mat-header-cell *matHeaderCellDef>
+        <mat-checkbox (change)="$event ? masterToggle() : null" [checked]="selection.hasValue() && isAllSelected()"
+          [indeterminate]="selection.hasValue() && !isAllSelected()">
+        </mat-checkbox>
+      </th>
+      <td mat-cell *matCellDef="let row">
+        <mat-checkbox (click)="$event.stopPropagation()" (change)="$event ? selection.toggle(row) : null" [checked]="selection.isSelected(row)">
+        </mat-checkbox>
+      </td>
+    </ng-container>
+
+
+    <!--- Note that these columns can be defined in any order.
+            The actual rendered columns are set as a property on the row definition" -->
+    <ng-container matColumnDef="reception_date">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> reception date </mat-header-cell>
+      <mat-cell *matCellDef="let ticket"> {{ticket.reception_date | date: 'dd/MM/yyyy'}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="delivery_date">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> delivery date </mat-header-cell>
+      <mat-cell *matCellDef="let ticket"> {{ticket.delivery_date | date: 'dd/MM/yyyy'}} </mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="category">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> category </mat-header-cell>
+      <mat-cell *matCellDef="let ticket"> {{ticket.category}} </mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="brand">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> brand </mat-header-cell>
+      <mat-cell *matCellDef="let ticket"> {{ticket.brand}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="model">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> model </mat-header-cell>
+      <mat-cell *matCellDef="let ticket"> {{ticket.model}} </mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="task">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> task </mat-header-cell>
+      <mat-cell *matCellDef="let ticket"> {{ticket.task}} </mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="missing">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> missing </mat-header-cell>
+      <mat-cell *matCellDef="let ticket"> {{ticket.missing}} </mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="user">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> user </mat-header-cell>
+      <mat-cell *matCellDef="let ticket"> {{ticket.user}} </mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="usercode">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> usercode </mat-header-cell>
+      <mat-cell *matCellDef="let ticket"> {{ticket.usercode}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="serial">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> serial </mat-header-cell>
+      <mat-cell *matCellDef="let ticket"> {{ticket.serial}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="price">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> price </mat-header-cell>
+      <mat-cell *matCellDef="let ticket"> {{ticket.price}}&nbsp; € </mat-cell>
+    </ng-container>
+
+
+    <ng-container matColumnDef="status">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> status </mat-header-cell>
+      <mat-cell *matCellDef="let ticket"> {{ticket.status}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="client">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Client </mat-header-cell>
+      <mat-cell *matCellDef="let ticket"> {{ticket.client.name}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="action">
+      <mat-header-cell *matHeaderCellDef> Action </mat-header-cell>
+      <mat-cell *matCellDef="let ticket">
+        <button mat-icon-button [matMenuTriggerFor]="menu">
+          <mat-icon>more_vert</mat-icon>
+        </button>
+        <mat-menu #menu="matMenu">
+          <button mat-menu-item [routerLink]="[ticket._id, 'view']">
+            <mat-icon>pageview</mat-icon>
+            <span>page-view</span>
+          </button>
+          <button mat-menu-item (click)="editBtnHandler(ticket._id)">
+            <mat-icon>edit</mat-icon>
+            <span>Edit</span>
+          </button>
+          <button mat-menu-item (click)="deleteBtnHandler(ticket._id)">
+            <mat-icon>delete</mat-icon>
+            <span>Delete</span>
+          </button>
+        </mat-menu>
+      </mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+  </mat-table>
+  <mat-paginator #paginator [length]="resultsLength" [showFirstLastButtons]="true" [pageSize]="10" [pageSizeOptions]="[5, 10, 20]">
+  </mat-paginator>
+</mat-card>

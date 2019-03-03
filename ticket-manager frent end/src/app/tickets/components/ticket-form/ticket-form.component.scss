@@ -1,0 +1,42 @@
+.form-container {
+	display: flex;
+	flex-direction: column;
+}
+
+.form-container > * {
+	width: 100%;
+}
+.mat-card {
+	width: 80%;
+	align-content: center;
+}
+.mat-card {
+	width: 100%;
+}
+.newClient {
+	margin-left: 30px;
+	margin-top: 5px;
+	margin-bottom: 5px;
+}
+
+.newBrand {
+	margin-left: 30px;
+	margin-top: 5px;
+	margin-bottom: 5px;
+}
+
+.newModel {
+	margin-left: 30px;
+	margin-top: 5px;
+	margin-bottom: 5px;
+}
+
+.search-button-row button,
+.search-button-row a {
+  margin-right: 8px;
+}
+ng-multiselect-dropdown /deep/ .multiselect-dropdown > .dropdown-btn{
+	border: 1px solid #ff4081 !important;
+	background: #ff4081 !important;
+ }
+

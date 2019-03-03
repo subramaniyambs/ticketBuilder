@@ -1,0 +1,27 @@
+<div align="center">
+    <mat-card>
+    <h3>{{title}}</h3>
+    <form class="form-container" [formGroup]="modelForm" novalidate (ngSubmit)="onSubmit()">
+        <mat-form-field appearance="legacy" style="width:200px !important" colro="accent">
+            <mat-select placeholder="Select brand" formControlName="brand">
+              <mat-option *ngFor="let b of brands" [value]="b._id">
+                 {{b.name}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+      
+      <mat-form-field color="accent"  >
+        <input matInput placeholder="Model" formControlName="name">
+        <mat-error *ngIf="modelForm.controls.name.invalid && modelForm.controls.name.touched"> Model is required</mat-error>
+      </mat-form-field>
+
+
+      
+     
+      <div>
+        <button mat-raised-button [disabled]="!modelForm.valid" type="submit" color="accent">Save</button>
+        <button mat-raised-button type="reset">Cancel</button>
+      </div>
+    </form>
+  </mat-card>
+  </div>

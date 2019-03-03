@@ -1,0 +1,102 @@
+.menu-bar {
+	position: absolute;
+	right: 60px;
+	color: rgb(255, 255, 255);
+	background-color: #ff4081;
+}
+
+.loading-shade {
+	position: absolute;
+	top: 0;
+	left: 0;
+	bottom: 56px;
+	right: 0;
+	background: rgba(0, 0, 0, 0.15);
+	z-index: 1;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+.mat-table {
+	overflow: auto;
+	max-height: 1000px;
+}
+.mat-toolbar {
+	background: #ffffff;
+	color: rgba(41, 40, 40, 0.87);
+}
+table {
+	width: 100%;
+  }
+  .mat-header-cell {
+    font-size: 12px;
+    font-weight: 500;
+    margin-left: 20px;
+}
+.mat-cell {
+    font-size: 12px;
+    font-weight: 500;
+    margin-left: 20px;
+}
+.mat-row:nth-child(even){
+	background-color:rgb(255, 255, 255);
+	}
+
+.mat-row:nth-child(odd){
+	background-color:rgb(223, 219, 219);
+	}
+
+.newTable{
+	display: none;
+}
+// expansian 
+:host{
+    display: block;
+    margin-top: 1rem;
+}
+.mat-raised-button{
+    margin: 0 5px;
+}
+
+.Row
+{
+    display: table;
+    width: 100%; /*Optional*/
+    table-layout: fixed; /*Optional*/
+    border-spacing: 10px; /*Optional*/
+}
+
+.Column{
+
+    display: table-cell;
+ 
+    margin-right: 50px;
+}
+
+.ColumnInside{
+
+    display: table-cell;
+    background-color: rgba(200, 243, 225, 0.87);
+    margin-right: 50px;
+    padding: 1rem 1rem;
+}
+
+mat-panel-title{
+	margin-right: 5rem;
+}
+
+.mat-expansion-panel {
+	$border-radius: 4px;
+  
+	box-sizing: content-box;
+	display: block;
+	margin: 5px 0;
+	border-radius: $border-radius;
+	overflow: hidden;
+
+}  
+
+.mat-expansion-panel-header:hover {
+	background-color: #ffcb05 !important;
+  }
+

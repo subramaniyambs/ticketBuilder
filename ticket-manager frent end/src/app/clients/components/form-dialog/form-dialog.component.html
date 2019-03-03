@@ -1,0 +1,44 @@
+<h1 mat-dialog-title>{{title}}</h1>
+<div mat-dialog-content>
+
+  <form class="form-container" [formGroup]="clientForm">
+    <mat-form-field color="accent">
+      <input matInput formControlName="name" placeholder="name">
+   
+    </mat-form-field>
+    <mat-form-field color="accent">
+        <input matInput formControlName="address" placeholder="address">
+     
+      </mat-form-field>
+      <mat-form-field color="accent">
+          <input matInput formControlName="post" placeholder="post">
+         
+        </mat-form-field>
+        <mat-form-field color="accent">
+            <input matInput formControlName="city" placeholder="city">
+           
+          </mat-form-field>
+          <mat-form-field color="accent">
+              <input matInput formControlName="phone" placeholder="phone">
+             
+            </mat-form-field>
+            <mat-form-field color="accent">
+                <input matInput formControlName="email" placeholder="email">
+                
+              </mat-form-field>
+              <mat-form-field color="accent">
+                  <input matInput formControlName="siren" placeholder="siren">
+                  
+                </mat-form-field>
+    <mat-form-field color="accent">
+      <input matInput formControlName="tva" placeholder="tva">
+     
+
+    </mat-form-field>
+  
+  </form>
+</div>
+<div mat-dialog-actions>
+  <button mat-button [disabled]="!clientForm.valid" [mat-dialog-close]="clientForm.value" cdkFocusInitial>Save</button>
+  <button mat-button (click)="onNoClick()">Cancel</button>
+</div>
